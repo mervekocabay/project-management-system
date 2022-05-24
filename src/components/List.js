@@ -1,4 +1,5 @@
 import React from 'react'
+import Card from './Card'
 
 const List = () => {
     const array = ["a", "a", "a", "a"]
@@ -14,6 +15,7 @@ const List = () => {
                                     <h1 className='capitalize font-bold'>
                                         Title
                                     </h1 >
+                                    <Card />
                                 </div>
                             </li>
                         ))
