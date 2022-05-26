@@ -1,27 +1,24 @@
 import React, { useState } from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import AddCard from './AddCard'
+import AddList from './AddList'
 import Card from './Card'
-import { Plus, X } from 'react-feather'
-import { useForm } from "react-hook-form";
-import shortid from 'shortid';
+
 
 const List = () => {
-    const array = [
-        { title: 'Başlık 1' },
-        { title: 'Başlık 2' },
-        { title: 'Başlık 3' },
-        { title: 'Başlık 4' },
-    ]
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const [listGenerator, setListGenerator] = useState(false)
+
     const [listData, setlistData] = useState([])
+    const [cardData, setCardData] = useState([])
+    const [generalData, setGeneralData] = useState([])
 
-    const onSubmit = (data) => {
-        setlistData([...listData, { listId: shortid.generate(), title: data.title }])
-        reset({ title: "" })
-    }
+    // listData?.map((listItem)=>(
+    //     cardData?.map((cardItem)=>(
+    //         console.log("kajshdkuesf:", listItem.listId == cardItem.listId ? setGeneralData([...generalData,{listItem:listItem}]))
+    //     ))
+
+    // ))
 
 
     const handleDragEnd = (result) => {
@@ -43,41 +40,21 @@ const List = () => {
                                     <Draggable key={index} draggableId={index.toString()} index={index}>
                                         {
                                             (provider) => (
-                                                <li ref={provider.innerRef} {...provider.draggableProps} {...provider.dragHandleProps} className='bg-gray-200 rounded-lg shadow-xl mt-3'>
+                                                <li ref={provider.innerRef} {...provider.draggableProps} {...provider.dragHandleProps} className='bg-gray-200 h-fit rounded-lg shadow-xl mt-3'>
                                                     <div className='p-3'>
                                                         <h1 className='capitalize font-bold'>
                                                             {item.title}
                                                         </h1 >
-                                                        <Card />
+                                                        <Card cardData={cardData} setCardData={setCardData} listId={item.listId} />
                                                     </div>
+                                                    <AddCard setCardData={setCardData} cardData={cardData} listId={item.listId} />
                                                 </li>
                                             )
                                         }
                                     </Draggable>
                                 ))}
                                 {provider.placeholder}
-                                {
-                                    !listGenerator ?
-                                        <div onClick={() => setListGenerator(!listGenerator)} className="bg-gray-100 hover:bg-gray-200 rounded-lg shadow-xl mt-3 h-12 flex justify-center items-center cursor-pointer font-semibold text-xs">
-                                            <Plus size={15} /> Yeni Liste Ekle
-                                        </div>
-
-                                        :
-                                        <div className="bg-gray-200 p-5 rounded-lg shadow-xl mt-3 h-28 cursor-pointer font-semibold text-xs">
-                                            <form onSubmit={handleSubmit(onSubmit)}>
-                                                <input type="text" {...register("title", { required: true })} className="px-3 py-3 placeholder-slate-300 h-10 text-slate-600 relative bg-white rounded text-sm border-0 shadow outline-none m-auto focus:outline-none focus:ring w-full" />
-                                                <div className='flex  mt-2 items-center'>
-                                                    <button className='bg-green-600 w-20 h-8 text-white font-medium text-base rounded-sm'>
-                                                        Kaydet
-                                                    </button>
-                                                    <X onClick={() => setListGenerator(!listGenerator)} className='ml-2 text-gray-400' />
-                                                </div>
-                                            </form>
-
-                                        </div>
-
-
-                                }
+                                <AddList setlistData={setlistData} listData={listData} />
 
                             </ul>
                         )}
