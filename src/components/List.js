@@ -34,7 +34,7 @@ const List = () => {
                                                         <h1 className='capitalize font-bold'>
                                                             {item.title}
                                                         </h1 >
-                                                        <Card listData={listData} cardData={cardData} listId={item.listId} />
+                                                        <Card listData={listData} cardData={cardData} setCardData={setCardData} listId={item.listId} />
                                                     </div>
                                                     <AddCard setCardData={setCardData} cardData={cardData} listId={item.listId} />
                                                 </li>
@@ -44,7 +44,6 @@ const List = () => {
                                 ))}
                                 {provider.placeholder}
                                 <AddList setlistData={setlistData} listData={listData} />
-
                             </ul>
                         )}
                     </Droppable>
