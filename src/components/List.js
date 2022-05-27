@@ -7,19 +7,8 @@ import Card from './Card'
 
 const List = () => {
 
-
-
     const [listData, setlistData] = useState([])
     const [cardData, setCardData] = useState([])
-    const [generalData, setGeneralData] = useState([])
-
-    // listData?.map((listItem)=>(
-    //     cardData?.map((cardItem)=>(
-    //         console.log("kajshdkuesf:", listItem.listId == cardItem.listId ? setGeneralData([...generalData,{listItem:listItem}]))
-    //     ))
-
-    // ))
-
 
     const handleDragEnd = (result) => {
         if (!result.destination) return
@@ -45,7 +34,7 @@ const List = () => {
                                                         <h1 className='capitalize font-bold'>
                                                             {item.title}
                                                         </h1 >
-                                                        <Card cardData={cardData} setCardData={setCardData} listId={item.listId} />
+                                                        <Card listData={listData} cardData={cardData} listId={item.listId} />
                                                     </div>
                                                     <AddCard setCardData={setCardData} cardData={cardData} listId={item.listId} />
                                                 </li>
