@@ -5,12 +5,11 @@ import AddCard from './AddCard'
 import AddList from './AddList'
 import Card from './Card'
 
-
 const List = () => {
-
     const [listData, setlistData] = useState([])
     const [cardData, setCardData] = useState([])
     const [hover, setHover] = useState({ status: false, listId: null })
+    const [edit, setEdit] = useState({ status: false, listId: null })
 
 
     const handleDragEnd = (result) => {
@@ -32,7 +31,6 @@ const List = () => {
     };
 
 
-
     return (
         <div className='min-h-screen flex'>
             <div className='flex-1 max-w-4x1 max-auto p-5'>
@@ -45,25 +43,34 @@ const List = () => {
                                         {
                                             (provider) => (
                                                 <li ref={provider.innerRef} {...provider.draggableProps} {...provider.dragHandleProps} className='bg-gray-200 h-fit rounded-lg shadow-xl mt-3'>
-                                                    <div
-                                                        onMouseEnter={() => setHover({ status: true, listId: item.listId })}
-                                                        onMouseLeave={() => setHover({ status: false, listId: item.listId })}
-                                                        className='flex relative p-3'>
-                                                        <h1 className='capitalize font-bold'>
-                                                            {item.title}
-                                                        </h1 >
-                                                        {(hover.status && hover.listId === item.listId) &&
+                                                    {
+                                                        edit.status && edit.listId === item.listId ?
+                                                            <h1>
+                                                                Boşver
+                                                            </h1>
+                                                            :
                                                             <>
-                                                                <Edit size={20} className='float-right right-4 hover:bg-gray-300 absolute text-blue-400' />
-                                                                <Trash size={20} onClick={() => removeItem(item.listId)} className='float-right right-10 absolute hover:bg-gray-300 text-red-400' />
+                                                                <div
+                                                                    onMouseEnter={() => setHover({ status: true, listId: item.listId })}
+                                                                    onMouseLeave={() => setHover({ status: false, listId: item.listId })}
+                                                                    className='flex relative p-3'>
+                                                                    <h1 className='capitalize font-bold'>
+                                                                        {item.title}
+                                                                    </h1 >
+                                                                    {(hover.status && hover.listId === item.listId) &&
+                                                                        <>
+                                                                            <Edit size={20} onClick={() => setEdit({ status: true, listId: item.listId })} className='float-right right-4 hover:bg-gray-300 absolute text-blue-400' />
+                                                                            <Trash size={20} onClick={() => removeItem(item.listId)} className='float-right right-10 absolute hover:bg-gray-300 text-red-400' />
+                                                                        </>
+                                                                    }
+                                                                </div>
+                                                                <div className='p-3'>
+                                                                    <Card listData={listData} cardData={cardData} setCardData={setCardData} listId={item.listId} />
+                                                                    <AddCard setCardData={setCardData} cardData={cardData} listId={item.listId} />
+                                                                </div>
                                                             </>
-                                                        }
-                                                    </div>
+                                                    }
 
-                                                    <div className='p-3'>
-                                                        <Card listData={listData} cardData={cardData} setCardData={setCardData} listId={item.listId} />
-                                                        <AddCard setCardData={setCardData} cardData={cardData} listId={item.listId} />
-                                                    </div>
                                                 </li>
                                             )
                                         }
