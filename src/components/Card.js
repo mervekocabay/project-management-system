@@ -12,10 +12,12 @@ const Card = ({ cardData, setCardData, listId, listData }) => {
     const [hover, setHover] = useState({ status: false, cardId: null })
     const [showModal, setShowModal] = useState(false);
     const [detailData, setDetailData] = useState({});
+    const [commentData, setCommentData] = useState([])
+
 
 
     useEffect(() => {
-        const cardList = cardData?.filter((item) => item.listId == listId)
+        const cardList = cardData?.filter((item) => item.listId === listId)
         setListCard(cardList)
     }, [cardData, listData])
 
@@ -76,7 +78,7 @@ const Card = ({ cardData, setCardData, listId, listData }) => {
                                             )
                                         }
                                     </Draggable>
-                                    <Modal showModal={showModal} detailData={detailData} setShowModal={setShowModal} modalBody={<CommentCard />} />
+                                    <Modal showModal={showModal} detailData={detailData} setShowModal={setShowModal} modalBody={<CommentCard setCommentData={setCommentData} commentData={commentData} cardData={detailData} />} />
                                 </Fragment>
                             ))
                         }

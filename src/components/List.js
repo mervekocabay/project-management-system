@@ -30,7 +30,6 @@ const List = () => {
         )
     };
 
-
     return (
         <div className='min-h-screen flex'>
             <div className='flex-1 max-w-4x1 max-auto p-5'>

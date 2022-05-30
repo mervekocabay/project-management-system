@@ -1,7 +1,6 @@
 import React from "react";
-import CommentCard from "./CommentCard";
 
-const Modal = ({ showModal, setShowModal, detailData,modalBody }) => {
+const Modal = ({ showModal, setShowModal, modalBody, detailData }) => {
 
     return (
         <>
